@@ -1,8 +1,8 @@
 import React from "react";
 
-const TodoForm = () => (
-  <div class="todo-item">
-    <li>Description of a Task</li>
+const TodoForm = (props) => (
+  <div className="todo-item">
+    <li>{props.item}</li>
     <button className="todo-done-btn">
       <i className="fa solid fa-check" />
     </button>
