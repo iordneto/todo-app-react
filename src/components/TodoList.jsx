@@ -7,7 +7,16 @@ const TodoList = (props) => {
   return (
     <ul className="todo-list">
       {(todoList && todoList.length) > 0 &&
-        todoList.map((todoItem) => <TodoItem item={todoItem} />)}
+        todoList.map((todo, index) => (
+          <TodoItem
+            onRemove={props.onRemove}
+            onCheck={props.onCheck}
+            key={index}
+            index={index}
+            item={todo.text}
+            isDone={todo.isDone}
+          />
+        ))}
     </ul>
   );
 };

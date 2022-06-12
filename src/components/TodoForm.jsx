@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 
 const TodoForm = (props) => {
+  const [text, setText] = useState("");
+
+  const handleChange = ({ target }) => {
+    setText(target.value);
+  };
+
+  const handleSubmit = () => {
+    props.onSubmit(text);
+    setText("");
+  };
+
   return (
     <div className="todo-form">
       <input
         type="text"
         className="todo-input"
         placeholder="Add a new task here..."
-        value={props.text}
-        onChange={props.onChange}
+        value={text}
+        onChange={handleChange}
       />
-      <button onClick={props.onSubmit} className="add-todo-btn">
+
+      <button onClick={handleSubmit} className="add-todo-btn">
         <i className="fa-thin fa-plus"></i>
       </button>
     </div>

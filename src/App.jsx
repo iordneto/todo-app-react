@@ -6,30 +6,38 @@ import TodoList from "./components/TodoList";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
-  const [newTodo, setNewTodo] = useState("");
 
-  const handleFormChange = ({ target }) => {
-    setNewTodo(target.value);
-  };
+  const addTodo = (text) => {
+    console.log(text);
+    const newTodo = {
+      text: text,
+      isDone: false,
+    };
 
-  const handleFormSubmit = () => {
     setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
-    setNewTodo("");
   };
 
-  useEffect(() => {
+  const removeTodo = (id) => {
+    console.log(id);
     console.log(todoList);
-  });
+    setTodoList(todoList.filter((todo, index) => index !== id));
+  };
+
+  const toggleCheck = (id) => {
+    const todos = todoList;
+    todos[id] = {
+      isDone: !todos[id].isDone,
+      text: todos[id].text,
+    };
+
+    setTodoList([...todos]);
+  };
 
   return (
     <div className="main">
       <Header />
-      <TodoForm
-        text={newTodo}
-        onChange={handleFormChange}
-        onSubmit={handleFormSubmit}
-      />
-      <TodoList list={todoList} />
+      <TodoForm onSubmit={addTodo} />
+      <TodoList onCheck={toggleCheck} onRemove={removeTodo} list={todoList} />
     </div>
   );
 }
