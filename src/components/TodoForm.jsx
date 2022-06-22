@@ -1,9 +1,10 @@
 import React, { useState, useContext } from "react";
-import TodoContext from "../TodoContext";
+import { useDispatch, useSelector } from "react-redux";
+import { add } from "../features/todo/todoSlice";
 
 const TodoForm = () => {
   const [text, setText] = useState("");
-  const [todoList, setTodoList] = useContext(TodoContext);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -11,8 +12,8 @@ const TodoForm = () => {
       text: text,
       isDone: false,
     };
-    console.log(text);
-    setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
+
+    dispatch(add(newTodo));
   };
 
   const handleChange = ({ target }) => {

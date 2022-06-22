@@ -1,22 +1,17 @@
-import React, { useContext } from "react";
-import TodoContext from "../TodoContext";
+import React from "react";
+import { useDispatch } from "react-redux";
+
+import { remove, toggleCheck } from "../features/todo/todoSlice";
 
 const TodoItem = ({ index, text, isDone }) => {
-  const [todoList, setTodoList] = useContext(TodoContext);
+  const dispatch = useDispatch();
 
   const handleCheck = () => {
-    const todos = [...todoList];
-    todos[index] = {
-      isDone: !todos[index].isDone,
-      text: todos[index].text,
-    };
-
-    setTodoList([...todos]);
+    dispatch(toggleCheck(index));
   };
 
   const handleRemove = () => {
-    console.log(todoList);
-    setTodoList(todoList.filter((todo, todoId) => todoId !== index));
+    dispatch(remove(index));
   };
 
   return (
