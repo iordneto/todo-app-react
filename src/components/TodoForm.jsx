@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import TodoContext from "../TodoContext";
 
-const TodoForm = (props) => {
+const TodoForm = () => {
   const [text, setText] = useState("");
+  const [todoList, setTodoList] = useContext(TodoContext);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newTodo = {
+      text: text,
+      isDone: false,
+    };
+    console.log(text);
+    setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
+  };
 
   const handleChange = ({ target }) => {
     setText(target.value);
-  };
-
-  const handleSubmit = () => {
-    props.onSubmit(text);
-    setText("");
   };
 
   return (
